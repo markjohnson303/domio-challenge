@@ -14,7 +14,8 @@ const getProperties = () => {
       console.log(error);
     });
 };
-getProperties();
+
+setInterval(getProperties, 5000);
 
 server.listen(3000, () => {
   console.log("Node server created at port 3000");
