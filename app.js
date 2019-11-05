@@ -85,7 +85,6 @@ const loopProperties = properties => {
       sendEmail(property);
     }
     function saveProperty(property) {
-      console.log("here");
       let sql =
         "INSERT INTO property_history (id, type, dynamicDisplayPrice, basePrice, datetime) ";
       sql += "VALUES (?, ?, ?, ?, ?) ";
@@ -116,12 +115,9 @@ const getProperties = () => {
   axios
     .get("https://interview.domio.io/properties/")
     .then(function(response) {
-      // handle success
-      //console.log(response);
       loopProperties(response.data.properties);
     })
     .catch(function(error) {
-      // handle error
       console.log(error);
     });
 };
