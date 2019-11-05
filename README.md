@@ -11,3 +11,9 @@ Run "npm install" in the root folder of the project
 ## Running the application
 
 Start the application with "node app.js". If necessary, the application will create the database automatically. The application will continue to poll the API every 5 seconds until stopped.
+
+## Libraries used
+
+Axios
+Nodemailer
+SQLite
