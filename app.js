@@ -16,12 +16,45 @@ db.run(
   "CREATE TABLE IF NOT EXISTS property_history(id TEXT, type TEXT, dynamicDisplayPrice REAL, basePrice REAL, dateTime TEXT)"
 );
 
+const writeProperties = properties => {
+  let dateTime = Date.now();
+  for (let index = 0; index < properties.length; index++) {
+    const property = properties[index];
+    function saveProperty(property) {
+      console.log("here");
+      let sql =
+        "INSERT INTO property_history (id, type, dynamicDisplayPrice, basePrice, dateTime) ";
+      sql += "VALUES (?, ?, ?, ?, ?) ";
+      db.run(
+        sql,
+        [
+          property.id,
+          property.type,
+          property.dynamicDisplayPrice,
+          property.basePrice,
+          dateTime
+        ],
+        function(error) {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log("Last ID: " + this.lastID);
+            console.log("# of Row Changes: " + this.changes);
+          }
+        }
+      );
+    }
+    saveProperty(property);
+  }
+};
+
 const getProperties = () => {
   axios
     .get("https://interview.domio.io/properties/")
     .then(function(response) {
       // handle success
-      console.log(response);
+      //console.log(response);
+      writeProperties(response.data.properties);
     })
     .catch(function(error) {
       // handle error
